@@ -70,3 +70,10 @@ CREATE TABLE comments (
     FOREIGN KEY (account_id) REFERENCES accounts(id),
     FOREIGN KEY (post_id) REFERENCES posts(id)
 );
+
+CREATE TABLE likes (
+	account_id INT,
+    post_id INT,
+    FOREIGN KEY (account_id) REFERENCES accounts(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
