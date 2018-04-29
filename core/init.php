@@ -10,9 +10,15 @@ $_config = [
     'database'  => 'MGZ'
 ];
 
-// register classes -autoloading-
-define('DS', DIRECTORY_SEPARATOR);
+// general constants
+$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://';
+$httpHost = $_SERVER['HTTP_HOST'];
 
+define('DS', DIRECTORY_SEPARATOR);
+define('PATH', substr(__FILE__, 0 , strrpos(__FILE__, 'core')));
+define('BASEURL', $protocol . $httpHost . '/');
+
+// register classes -autoloading-
 $coreClasses = [
     # wall classes
     'Post'      => 'wall' . DS . 'Post',
@@ -37,5 +43,20 @@ spl_autoload_register(function($className) use ($coreClasses) {
     require_once 'classes' . DS . $coreClasses[$className] . '.php';
 });
 
+// general paths
 
-// check if the user loggedin
+# assets
+$css = BASEURL . 'layout/css/';
+$js  = BASEURL . 'layout/js/';
+
+# templates
+$templates = PATH . 'include' . DS . 'template' . DS;
+
+// check if the user not loggedin
+if (isset($shouldLoggin) && !User::isLoggedin()) {
+    header('Location: ' . BASEURL .'register.php');
+    die;
+}
+
+// require the header for all pages
+require $templates . 'header.php';

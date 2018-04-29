@@ -1,42 +1,32 @@
-/*============================================
-          *** TABLE OF CONTENTS ***
-==============================================
-    * 01. Register page
-
-============================================*/
-
-/*---------------------
-* 01. Register page
-*--------------------*/
-.register_page{
+body{
     background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/back01.png);
     background-size: cover;
     height: 100vh;
 }
 
-.register_page .formbox{
+.formbox {
     width: 500px;
     margin: 0 auto;
     padding: 10% 0 0;
-    height: 80%;
-    overflow: hidden;
+    height: 200px;
 }
-.register_page .register-form, .login-form{
+.register-form, .login-form{
     position: relative;
     z-index: 1;
     background: rgba(255, 255, 255, 0.8);
     max-width: 100%;
     margin: 0 auto 100px;
     padding: 45px;
-    height: auto;
+    height: 250px; 
     text-align: center
 }
 
-.register_page .register-form{
-    display: none;
+.register-form{
+        display: none;
+        height: 300px; 
 }
+form input[type="text"] , input[type="password"]{
 
-.register_page form input[type="email"] , form input[type="password"], form input[type="text"]{
     width: 100%;
     margin-bottom: 25px;
     border: none;
@@ -47,14 +37,14 @@
     color: #000000
 }
 
-.register_page form input:focus{
+form input:focus{
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
 
     border-bottom: 1px solid rgba(10, 100, 150, 1);
 }
 
-.register_page form input[type = "submit"]{
+form input[type = "submit"]{
 
     margin-top: 20px;
     font-family: "Roboto" "sans-serif";
@@ -68,27 +58,27 @@
     font-weight:550 ;
     font-size: 20px;
     border-radius: 5px;
-}
 
-.register_page form input[type = "submit"]:hover , form input[type = "submit"]:focus{
+
+}
+form input[type = "submit"]:hover , form input[type = "submit"]:focus{
+    
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
     background: #0a6496;
     cursor: pointer;
+
 }
 
-.register_page form a{
+form a{
     color: rgba(0, 159, 131, 0.6);
     text-decoration: none;
 }
 
-.register_page form a:focus{
+form a:focus{
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
+    
     outline: none;
     color: #0a6496
 }
-
-/*---------------------
-* 02.
-*--------------------*/
