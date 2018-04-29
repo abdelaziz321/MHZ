@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-	<head>
+    <head>
 
-		<meta charset="utf-8">
-		<meta name="description" content="this is 1st Day">
+        <meta charset="utf-8">
+        <meta name="description" content="this is 1st Day">
 
-		<title> First Day </title>
+        <title> First Day </title>
 
-		<link rel="stylesheet" href="<?= $css; ?>style.css"/>
-		<link rel="stylesheet" href="<?= $css; ?>font-awesome.min.css">
-		<link rel="stylesheet" href="<?= $css; ?>normalize.css">
+        <link rel="stylesheet" href="<?= $css; ?>style.css"/>
+        <link rel="stylesheet" href="<?= $css; ?>font-awesome.min.css">
+        <link rel="stylesheet" href="<?= $css; ?>normalize.css">
 
-		<script src="<?= $js; ?>jquery-3.2.1.min.js"></script>
+        <script src="<?= $js; ?>jquery-3.2.1.min.js"></script>
 
-	</head>
-	<body>
+    </head>
+    <body>

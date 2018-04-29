@@ -22,11 +22,11 @@ class User
      *
      * @param array $data
      */
-	function __construct($data)
-	{
+    function __construct($data)
+    {
         $this->_dbInstance = DB::getInstance();
-		$this->data = $data;
-	}
+        $this->data = $data;
+    }
 
     /**
      * valdate the given data and check the database with email & password

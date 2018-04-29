@@ -38,35 +38,35 @@ if (isset($_POST['register'])) {
                         print_r($errors);
                     }
                 ?>
-    			<form class="login-form" method="post">
+                <form class="login-form" method="post">
 
-    				<input type="email" name="email" placeholder="email@example.com">
-    				<input type="password" name="password" placeholder="password">
+                    <input type="email" name="email" placeholder="email@example.com">
+                    <input type="password" name="password" placeholder="password">
 
-    				<input type="submit" name="login" value="Login" >
+                    <input type="submit" name="login" value="Login" >
 
-    				<p class="message">
+                    <p class="message">
                           <a href="#">Sign Up</a>
                     </p>
 
-    			</form>
+                </form>
 
-    			<form class="register-form" method="post">
+                <form class="register-form" method="post">
 
                     <input type="text" name="first_name" placeholder="first name"/>
                     <input type="text" name="last_name" placeholder="last name"/>
 
-    				<input type="email" name="email" placeholder="email@example.com">
-    				<input type="password" name="password" placeholder="Password">
-    				<input type="password" name="confirm_password" placeholder="Confirm Password">
+                    <input type="email" name="email" placeholder="email@example.com">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password">
 
-    				<input type="submit" name="register" value="Sign Up" >
+                    <input type="submit" name="register" value="Sign Up" >
 
-    				<p class="message">
+                    <p class="message">
                         <a href="#">Log in ?</a>
                     </p>
 
-    			</form>
+                </form>
             </div>
         </div>
 

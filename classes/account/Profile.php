@@ -8,10 +8,10 @@ class Profile extends User
      *
      * @param array $data
      */
-	function __construct($data)
-	{
-		super($data);
-	}
+    function __construct($data)
+    {
+        super($data);
+    }
 
     /**
      * Update user profile using the 'info' array
@@ -60,7 +60,7 @@ class Profile extends User
      */
     private function validateInfo()
     {
-        
+
     }
 
 }
