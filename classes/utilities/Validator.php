@@ -196,17 +196,18 @@ class Validator
         $dbInstance = DB::getInstance();
         if (count($databaseData) == 2) {    # check if the value exists in the table
             list($table, $column) = $databaseData;
-            $dbInstance->select("$column FROM $table WHERE $column = :value", [
+            $sql = "$column FROM $table WHERE $column = :value";
+            $result = $dbInstance->select($sql, [
                 ':value' => $value
             ]);
         } else {
             list($table, $column, $exceptionColumn, $exceptionColumnValue) = $databaseData;
-            $dbInstance->select("$column FROM $table WHERE $column = :value AND $exceptionColumn != :exceptionValue", [
+            $sql = "$column FROM $table WHERE $column = :value AND $exceptionColumn != :exceptionValue";
+            $result = $dbInstance->select($sql, [
                 ':value'            => $value,
                 ':exceptionValue'   => $exceptionColumnValue
             ]);
         }
-        $result = $dbInstance->results();
 
         if (!empty($result)) {
             # generate the error message only if it doesn't provided
