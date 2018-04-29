@@ -10,7 +10,7 @@ class Profile extends User
      */
     function __construct($data)
     {
-        super($data);
+        parent::__construct($data);
     }
 
     /**
