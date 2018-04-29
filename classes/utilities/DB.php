@@ -75,7 +75,9 @@ class DB
     {
         if ($statement = $this->_pdo->prepare($sql)) {
             if ($statement->execute($params)) {
-                $this->_results = $statement->fetchAll();
+                if (strpos($sql, 'SELECT') === 0) {
+                    $this->_results = $statement->fetchAll();
+                }
                 $this->_count = $statement->rowCount();
             } else {
                 $this->_errors = true;
@@ -91,13 +93,14 @@ class DB
      *
      * @param  string $sql    Ex: 'INTO users SET name=:name'
      * @param  array  $params Ex: [':name' => $name]
-     * @return bool   determine if any error occure wile executing the query
+     * @return mixed  false if any error occure wile executing the query,
+     *                if not return the number of the affected rows
      */
     public function insert($sql, $params = [])
     {
         $sql = 'INSERT ' . $sql;
         if (!$this->query($sql, $params)) {
-            return true;
+            return $this->_count;
         }
         return false;
     }
@@ -107,13 +110,14 @@ class DB
      *
      * @param  string $sql    Ex: 'INTO users SET name=:name'
      * @param  array  $params Ex: [':name' => $name]
-     * @return bool   determine if any error occure wile executing the query
+     * @return mixed  false if any error occure wile executing the query,
+     *                if not return the number of the affected rows
      */
     public function update($sql, $params = [])
     {
         $sql = 'UPDATE ' . $sql;
         if (!$this->query($sql, $params)) {
-            return true;
+            return $this->_count;
         }
         return false;
     }
@@ -123,13 +127,14 @@ class DB
      *
      * @param  string $sql    Ex: 'FROM users WHERE id = :id'
      * @param  array  $params Ex: [':id' => $id]
-     * @return bool   determine if any error occure wile executing the query
+     * @return mixed  false if any error occure wile executing the query,
+     *                if not return the number of the affected rows
      */
     public function delete($sql, $params = [])
     {
         $sql = 'DELETE ' . $sql;
         if (!$this->query($sql, $params)) {
-            return true;
+            return $this->_count;
         }
         return false;
     }
@@ -139,13 +144,14 @@ class DB
      *
      * @param  string $sql    Ex: 'name FROM users WHERE id = :id'
      * @param  array  $params Ex: [':id' => $id]
-     * @return bool   determine if any error occure wile executing the query
+     * @return mixed  false if any error occure wile executing the query,
+     *                if not return the result
      */
     public function select($sql, $params = [])
     {
         $sql = 'SELECT ' . $sql;
         if (!$this->query($sql, $params)) {
-            return true;
+            return $this->_results;
         }
         return false;
     }
@@ -155,7 +161,8 @@ class DB
      *
      * @return stdClass
      */
-    public function results() {
+    public function results()
+    {
         return $this->_results;
     }
 
@@ -164,7 +171,8 @@ class DB
      *
      * @return mixed
      */
-    public function first() {
+    public function first()
+    {
         if (empty($this->_results)) {
             return false;
         }
@@ -176,7 +184,8 @@ class DB
      *
      * @return int
      */
-    public function count() {
+    public function count()
+    {
         return $this->_count;
     }
 
@@ -185,7 +194,8 @@ class DB
      *
      * @return bool
      */
-    public function errors() {
+    public function errors()
+    {
         return $this->_errors;
     }
 }
