@@ -9,7 +9,7 @@ MHZ is a social networking web based application.
 ### Contributors
 
 - [Marwan Mostafa](https://github.com/Marwan-Mostafa7)
-- [Hossam Ghanem](http://github.com)
+- [Hossam Ghanem](https://github.com/ElGhanem)
 - [Abdelaziz Sliem](https://github.com/abdelaziz321/)
 
 
