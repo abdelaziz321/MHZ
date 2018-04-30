@@ -47,9 +47,7 @@ class User
         // if row retrieved and the the hashed password verified
         if ($this->_dbInstance->count() == 1 &&
             password_verify($this->data['password'], $this->_dbInstance->first()->password)) {
-            $firstname = $this->_dbInstance->first()->first_name;
-            $lastname = $this->_dbInstance->first()->last_name;
-            $_SESSION['user'] = "$firstname $lastname";
+            $_SESSION['user'] = $this->data['email'];
             return true;
         }
 
@@ -81,9 +79,7 @@ class User
             return false;
         }
 
-        $firstname = $this->data['first_name'];
-        $lastname = $this->data['last_name'];
-        $_SESSION['user'] = "$firstname $lastname";
+        $_SESSION['user'] = $this->data['email'];
         return true;
     }
 
@@ -137,7 +133,7 @@ class User
         $validator->required('first_name')
                   ->minLen('first_name', 3)
                   ->required('last_name')
-                  ->minLen('first_name', 3)
+                  ->minLen('last_name', 3)
                   ->required('email')
                   ->email('email')
                   ->unique('email', ['accounts', 'email'])
