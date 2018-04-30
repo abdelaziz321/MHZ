@@ -13,10 +13,12 @@ $_config = [
 // general constants
 $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://';
 $httpHost = $_SERVER['HTTP_HOST'];
+$baseUrl = $httpHost . dirname($_SERVER['SCRIPT_NAME']) . '/';
 
 define('DS', DIRECTORY_SEPARATOR);
 define('PATH', substr(__FILE__, 0 , strrpos(__FILE__, 'core')));
-define('BASEURL', $protocol . $httpHost . '/');
+define('BASEURL', $protocol . str_replace("//", "/", $baseUrl));
+
 
 // register classes -autoloading-
 $coreClasses = [
@@ -44,11 +46,10 @@ spl_autoload_register(function($className) use ($coreClasses) {
 });
 
 // general paths
-
 # assets
-$css = BASEURL . 'layout/css/';
-$js  = BASEURL . 'layout/js/';
-
+$js     = BASEURL . 'layout/js/';
+$css    = BASEURL . 'layout/css/';
+$photos = BASEURL . 'layout/images/';
 # templates
 $templates = PATH . 'include' . DS . 'template' . DS;
 
