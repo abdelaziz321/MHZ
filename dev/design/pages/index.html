@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>MHZ</title>
+
+        <link rel="icon" type="image/x-icon" href="assets/images/thumbnail.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/style.css"/>
+
+        <!--[if lt IE 9]>
+        <script src="<?= $js; ?>html5shiv.min.js"></script>
+        <script src="<?= $js; ?>respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!-- navbar -->
+        <div class="navvbar">
+            <div class="container">
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="assets/images/LOGO1.png" alt="Logo">
+                </div>
+                <!-- Search frinds form -->
+                <div class="search">
+                    <form action="search.php" method="post">
+                        <input type="text" name="friend" placeholder="Search for friends" />
+                        <button type="submit" name="search"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row wallpaper">
+                <!-- wall page -->
+                <div class="col-md-8">
+                    <div class="wall_page">
+
+                        <!-- post form -->
+                        <div class="post_form">
+                            <form action="" method="post">
+                                <textarea name="post" placeholder="Say hello world"></textarea>
+                                <div class="post_options">
+                                    <div class="post_photo">
+                                        <input type="file" name="photo" />
+                                    </div>
+                                    <select name="type">
+                                        <option id="me">Only me</option>
+                                        <option id="private">Private</option>
+                                        <option id="public">Public</option>
+                                    </select>
+                                    <button type="submit" name="submit_post"><i class="fa fa-send"></i></button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- posts -->
+                        <div class="post">
+                            <header>
+                                <img src="assets/images/user1.jpg" alt="user"/>
+                                <div>
+                                    <h5 class="nickname"><a href="#">Abdelaziz Sliem</a></h5>
+                                    <time>2 houres ago</time>
+                                </div>
+                            </header>
+                            <div class="body">
+                                <p>بروجكتات صعرااانة</p>
+                                <img src="assets/images/post1.jpg" />
+                            </div>
+                            <footer>
+                                <div class="likes">
+                                    <span>
+                                        <a href="#">
+                                            <i class="fa fa-thumbs-up"></i>
+                                        </a>
+                                        112 Likes
+                                    </span>
+                                    <span>
+                                        <a href="#">
+                                            <i class="fa fa-comments"></i> 12 Comments
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="comment">
+                                    <form action="" method="post">
+                                        <textarea name="comment" placeholder="type your comment"></textarea>
+                                        <button type="submit" name="submit_comment" title="reply"><i class="fa fa-reply"></i></button>
+                                    </form>
+                                </div>
+                            </footer>
+                        </div>
+
+                        <!-- posts -->
+                        <div class="post">
+                            <header>
+                                <img src="assets/images/user2.jpg" alt="user"/>
+                                <div>
+                                    <h5 class="nickname"><a href="#">Hossam Ghanem</a></h5>
+                                    <time>3 houres ago</time>
+                                </div>
+                                <form>
+                                    <input type="hidden" name="post" />
+                                    <button type="submit" name="delete_post"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </header>
+                            <div class="body">
+                                <p>مش هناكل ولا ايييييييييه</p>
+                                <img src="assets/images/post2.jpg" />
+                            </div>
+                            <footer>
+                                <div class="likes">
+                                    <span>
+                                        <a href="#">
+                                            <i class="fa fa-thumbs-up"></i>
+                                        </a>
+                                        112 Likes
+                                    </span>
+                                    <span>
+                                        <a href="#">
+                                            <i class="fa fa-comments"></i> 12 Comments
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="comment">
+                                    <form action="" method="post">
+                                        <textarea name="comment" placeholder="type your comment"></textarea>
+                                        <button type="submit" name="submit_comment" title="reply"><i class="fa fa-reply"></i></button>
+                                    </form>
+                                </div>
+                            </footer>
+                        </div>
+
+                        <!-- posts -->
+                        <div class="post">
+                            <header>
+                                <img src="assets/images/user3.jpg" alt="user"/>
+                                <div>
+                                    <h5 class="nickname"><a href="#">Marawan Mostafa</a></h5>
+                                    <time>5 houres ago</time>
+                                </div>
+                            </header>
+                            <div class="body">
+                                <img src="assets/images/post3.jpg" />
+                            </div>
+                            <footer>
+                                <div class="likes">
+                                    <span>
+                                        <a href="#">
+                                            <i class="fa fa-thumbs-up"></i>
+                                        </a>
+                                        112 Likes
+                                    </span>
+                                    <span>
+                                        <a href="#">
+                                            <i class="fa fa-comments"></i> 12 Comments
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="comment">
+                                    <form action="" method="post">
+                                        <textarea name="comment" placeholder="type your comment"></textarea>
+                                        <button type="submit" name="submit_comment" title="reply"><i class="fa fa-reply"></i></button>
+                                    </form>
+                                </div>
+                            </footer>
+                        </div>
+
+                        <footer class="show_more">
+                            <a href="#">show_more</a>
+                        </footer>
+                    </div>
+                </div>
+                <!-- sidebar -->
+                <div class="col-md-4">
+                    <div class="sidebar">
+                        <div class="bio">
+                            <img src="assets/images/elliot.jpg" alt="Profile Picture">
+                            <h3>
+                                Hossam Ghanem
+                            </h3>
+                        </div>
+
+                        <div class="menu">
+                            <ul>
+                                <li><a href="#"><span class="fa fa-tachometer"></span>Profile</a></li>
+                                <li><a href="#"><span class="fa fa-bell"></span>Notifications</a></li>
+                                <li><a href="#"><span class="fa fa-users"></span>Friends</a></li>
+                                <li><a href="#"><span class="fa fa-envelope"></span>Messages</a></li>
+                                <li><a href="#"><span class="fa fa-cogs"></span>Setting</a></li>
+                                <li><a href="#"><span class="fa fa-sign-out"></span>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

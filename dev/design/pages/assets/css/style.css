@@ -1,0 +1,405 @@
+/*============================================
+          *** TABLE OF CONTENTS ***
+==============================================
+    * 00. General
+    * 01. Register page
+    * 02. Wall page
+
+============================================*/
+
+/*---------------------
+* 00. General
+*--------------------*/
+*{
+    outline: none !important;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+body{
+    background-color: #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-size: 13px
+}
+a,a:hover,a:focus{
+    text-decoration: none !important;
+    outline: 0 !important;
+}
+
+.wallpaper{
+    min-height: 100vh;
+    margin-top: 180px;
+}
+
+/* navbar */
+.navvbar{
+    background-color: #028181;
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    -webkit-box-shadow: 0 1px 2px #09f;
+            box-shadow: 0 1px 2px #09f;
+}
+.navvbar .logo{
+    float: left;
+    width: 90px;
+    margin-left: -15px;
+}
+.navvbar .logo img{
+    width: 100%;
+}
+.navvbar .search{
+    float: right;
+    margin-right: -5px;
+    padding: 25px 0 25px 25px;
+}
+.navvbar .search input{
+    height: 40px;
+    width: 30vw;
+    min-width: 300px;
+    padding: 15px;
+    border: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.1);
+}
+.navvbar .search input:focus,
+.navvbar .search input:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+.navvbar .search button{
+    display: block;
+    float: right;
+    width: 75px;
+    height: 40px;
+    font-size: 1.5em;
+    border: 0;
+    color: #f4f4f4;
+    background-color: #49b5fd;
+}
+.navvbar .search button:hover{
+    color: #fff;
+}
+
+/* sidebar */
+.sidebar{
+    margin-right: -5px;
+    padding: 0 20px 10px 20px;
+    border-radius: 8px;
+    background-color: #fbfbfb;
+}
+.sidebar .bio{
+    position: relative;
+    padding-top: 25px;
+}
+.sidebar .bio img{
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 33%;
+    min-width: 65px;
+    z-index: 3;
+    border-radius: 50%;
+    border: 2px solid #09f;
+    -webkit-transform: translate(50%, -66%);
+            transform: translate(50%, -66%);
+}
+.sidebar .bio h3{
+    position: relative;
+    text-align: center;
+    font-size: 1.2em;
+    color: #09f;
+}
+
+.sidebar .menu{
+    margin-top: 15px;
+}
+.sidebar .menu ul{
+    padding-left: 0;
+    list-style: none;
+}
+.sidebar .menu ul li{
+    padding: 20px 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: 3px solid #fbfbfb;
+    background-color: #f0f0f0;
+}
+.sidebar .menu ul li:hover{
+    background-color: #09f;
+}
+.sidebar .menu ul li a{
+    color: #9e9e9e;
+}
+.sidebar .menu ul li a span{
+    margin-right: 15px;
+}
+.sidebar .menu ul li:hover a{
+    color: #fff;
+}
+
+/*---------------------
+* 01. Register page
+*--------------------*/
+.register_page{
+    background-image: -webkit-gradient(linear , left top, left bottom , from(rgba(0,0,0,0.4)) , to(rgba(0,0,0,0))), url(../images/back01.png);
+    background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/back01.png);
+    background-size: cover;
+    height: 100vh;
+    font-size: 1.1em;
+}
+.register_page .formbox{
+    position: relative;
+    width: 500px;
+    margin: 0 auto;
+    padding: 10% 0 0;
+    height: 80%;
+    overflow: hidden;
+}
+.register_page .register-form,
+.register_page .login-form{
+    position: absolute;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.8);
+    max-width: 100%;
+    margin: 0 auto 100px;
+    padding: 45px;
+    height: auto;
+    text-align: center
+}
+.register_page .register-form{
+    display: none;
+}
+.register_page form input[type="email"] ,
+.register_page form input[type="password"],
+.register_page form input[type="text"]{
+    width: 100%;
+    margin-bottom: 25px;
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #000000
+}
+.register_page form input:focus{
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+
+    border-bottom: 1px solid rgba(10, 100, 150, 1);
+}
+.register_page form input[type = "submit"]{
+
+    margin-top: 20px;
+    font-family: "Roboto" "sans-serif";
+    text-transform: uppercase;
+    outline: 0;
+    background: rgba(0, 159, 131, 0.6);
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-weight:550 ;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.register_page form input[type="submit"]:hover,
+.register_page form input[type="submit"]:focus{
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+    background: #0a6496;
+    cursor: pointer;
+}
+.register_page form a{
+    color: rgba(0, 159, 131, 0.6);
+    text-decoration: none;
+}
+.register_page form a:focus{
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+    outline: none;
+    color: #0a6496
+}
+.register_page .register-form .message,
+.register_page .login-form .message{
+    padding-top: 10px;
+    font-weight: 900;
+}
+
+/*---------------------
+* 02. Wall page
+*--------------------*/
+.wall_page{
+    background-color: #fbfbfb;
+    min-height: 120vh;
+    padding: 15px;
+    margin-bottom: 40px;
+}
+.wall_page .post_form textarea{
+    width: 100%;
+    min-height: 150px;
+    max-height: 250px;
+    resize: vertical;
+    padding: 10px;
+    opacity: 1;
+    border: 2px solid rgba(0,0,0,0.07);
+    background-color: #f9f9f9;
+}
+.wall_page .post_form textarea:hover,
+.wall_page .post_form textarea:focus{
+    background-color: #fdfdfd;
+}
+.wall_page .post_form textarea:focus{
+    border: 2px solid #09f;
+}
+.wall_page .post_form .post_options{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 10px 0 20px 0;
+    border-bottom: 3px solid #f0f0f0;
+}
+.wall_page .post_form .post_options .post_photo{
+    width: 120px;
+    color: #bbb;
+    background-color: #fff;
+}
+.wall_page .post_form .post_options .post_photo input{
+    height: 40px;
+    background-color: #fbfbfb;
+    cursor: pointer;
+}
+.wall_page .post_form .post_options select{
+    height: 40px;
+    width: 110px;
+    cursor: pointer;
+}
+.wall_page .post_form .post_options button[type="submit"]{
+    display: block;
+    float: right;
+    width: 105px;
+    height: 40px;
+    font-size: 1.5em;
+    border: 0;
+    color: #f2f2f2;
+    background-color: #09f;
+    opacity: 0.7;
+}
+.wall_page .post_form .post_options button[type="submit"]:hover{
+    opacity: 1;
+}
+.wall_page .post{
+    margin-top: 20px;
+    padding: 15px 10px 20px 10px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+.wall_page .post header{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+.wall_page .post header img{
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    margin-right: 11px;
+}
+.wall_page .post header div h5{
+    color: #09f;
+    margin-bottom: 5px;
+}
+.wall_page .post header div time{
+    color: #999;
+    font-size: 0.85em;
+}
+.wall_page .post header form button{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: transparent;
+    border: 0;
+    color: #999;
+    font-size: 1.2em;
+}
+.wall_page .post header form button:hover{
+    color: #09f;
+}
+.wall_page .post .body img{
+    width: 100%;
+    margin-top: 10px;
+}
+.wall_page .post .body p{
+    margin-top: 10px;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    font-size: 1.1em;
+    color: #555;
+}
+.wall_page .post footer .likes{
+    padding: 7px 0;
+    background-color: rgba(255,255,255,0.5);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.wall_page .post footer .likes span{
+    color: #666;
+}
+.wall_page .post footer .likes span a{
+    color: #09f;
+    opacity: 0.8;
+}
+.wall_page .post footer .likes span a:hover{
+    opacity: 1;
+}
+.wall_page .post footer .comment textarea{
+    resize: none;
+    height: 40px;
+    width: 92%;
+    padding: 1px 5px;
+    border: 0;
+    border-radius: 0 0 0 7px;
+    color: #777;
+    background-color: #f9f9f9;
+}
+.wall_page .post footer .comment button[type="submit"]{
+    display: block;
+    float: right;
+    width: 7.5%;
+    height: 40px;
+    font-size: 1em;
+    border: 0;
+    border-radius: 0 0 7px 0;
+    color: #09f;
+    background-color: #fff;
+    opacity: 0.7;
+}
+.wall_page .post footer .comment button[type="submit"]:hover{
+    opacity: 1;
+}
+.wall_page .show_more{
+    text-align: center;
+    padding: 5px;
+}
+.wall_page .show_more a{
+    color: #09f;
+    opacity: 0.8;
+}
+.wall_page .show_more a:hover{
+    opacity: 1;
+}
