@@ -1,9 +1,11 @@
 $(document).ready(function () {
 
-    // show/hide the forms
-    $('.formbox .message a').click(function(e){
+    var registerBtns = $('.register_page .message a');
+
+    // toggle between the login | register forms
+    registerBtns.click(function (e) {
         e.preventDefault();
         $('form').animate({height:"toggle" , opacity:"toggle"} , "slow");
     });
-    
+
 });

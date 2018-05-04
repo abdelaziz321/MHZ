@@ -46,7 +46,7 @@ if (isset($_POST['register'])) {
                     <input type="submit" name="login" value="Login" >
 
                     <p class="message">
-                          <a href="#">Sign Up</a>
+                          <a href="#">Sign Up ?</a>
                     </p>
 
                 </form>
@@ -63,7 +63,7 @@ if (isset($_POST['register'])) {
                     <input type="submit" name="register" value="Sign Up" >
 
                     <p class="message">
-                        <a href="#">Log in ?</a>
+                        <a href="#">Login ?</a>
                     </p>
 
                 </form>

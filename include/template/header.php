@@ -3,15 +3,19 @@
     <head>
 
         <meta charset="utf-8">
-        <meta name="description" content="this is 1st Day">
 
-        <title> First Day </title>
+        <title>MHZ</title>
 
-        <link rel="stylesheet" href="<?= $css; ?>style.css"/>
+        <link rel="icon" type="image/x-icon" href="<?= $images; ?>thumbnail.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="stylesheet" href="<?= $css; ?>font-awesome.min.css">
+        <link rel="stylesheet" href="<?= $css; ?>bootstrap.min.css">
         <link rel="stylesheet" href="<?= $css; ?>normalize.css">
+        <link rel="stylesheet" href="<?= $css; ?>style.css"/>
 
-        <script src="<?= $js; ?>jquery-3.2.1.min.js"></script>
-
+        <!--[if lt IE 9]>
+        <script src="<?= $js; ?>html5shiv.min.js"></script>
+        <script src="<?= $js; ?>respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>

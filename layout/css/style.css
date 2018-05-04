@@ -1,28 +1,163 @@
 /*============================================
           *** TABLE OF CONTENTS ***
 ==============================================
+    * 00. General
     * 01. Register page
 
 ============================================*/
 
 /*---------------------
+* 00. General
+*--------------------*/
+*{
+    outline: none !important;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+body{
+    background-color: #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-size: 13px
+}
+a,a:hover,a:focus{
+    text-decoration: none !important;
+    outline: 0 !important;
+}
+
+.wallpaper{
+    min-height: 100vh;
+    margin-top: 180px;
+}
+
+/* navbar */
+.navvbar{
+    background-color: #028181;
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    -webkit-box-shadow: 0 1px 2px #09f;
+            box-shadow: 0 1px 2px #09f;
+}
+.navvbar .logo{
+    float: left;
+    width: 90px;
+    margin-left: -15px;
+}
+.navvbar .logo img{
+    width: 100%;
+}
+.navvbar .search{
+    float: right;
+    margin-right: -5px;
+    padding: 25px 0 25px 25px;
+}
+.navvbar .search input{
+    height: 40px;
+    width: 30vw;
+    min-width: 300px;
+    padding: 15px;
+    border: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.1);
+}
+.navvbar .search input:focus,
+.navvbar .search input:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+.navvbar .search button{
+    display: block;
+    float: right;
+    width: 75px;
+    height: 40px;
+    font-size: 1.5em;
+    border: 0;
+    color: #f4f4f4;
+    background-color: #49b5fd;
+}
+.navvbar .search button:hover{
+    color: #fff;
+}
+
+/* sidebar */
+.sidebar{
+    margin-right: -5px;
+    padding: 0 20px 10px 20px;
+    border-radius: 8px;
+    background-color: #fbfbfb;
+}
+.sidebar .bio{
+    position: relative;
+    padding-top: 25px;
+}
+.sidebar .bio img{
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 33%;
+    min-width: 65px;
+    z-index: 3;
+    border-radius: 50%;
+    border: 2px solid #09f;
+    -webkit-transform: translate(50%, -66%);
+            transform: translate(50%, -66%);
+}
+.sidebar .bio h3{
+    position: relative;
+    text-align: center;
+    font-size: 1.2em;
+    color: #09f;
+}
+
+.sidebar .menu{
+    margin-top: 15px;
+}
+.sidebar .menu ul{
+    padding-left: 0;
+    list-style: none;
+}
+.sidebar .menu ul li{
+    padding: 20px 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: 3px solid #fbfbfb;
+    background-color: #f0f0f0;
+}
+.sidebar .menu ul li:hover{
+    background-color: #09f;
+}
+.sidebar .menu ul li a{
+    color: #9e9e9e;
+}
+.sidebar .menu ul li a span{
+    margin-right: 15px;
+}
+.sidebar .menu ul li:hover a{
+    color: #fff;
+}
+
+/*---------------------
 * 01. Register page
 *--------------------*/
 .register_page{
+    background-image: -webkit-gradient(linear , left top, left bottom , from(rgba(0,0,0,0.4)) , to(rgba(0,0,0,0))), url(../images/back01.png);
     background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/back01.png);
     background-size: cover;
     height: 100vh;
+    font-size: 1.1em;
 }
-
 .register_page .formbox{
-	position: relative;
+    position: relative;
     width: 500px;
     margin: 0 auto;
     padding: 10% 0 0;
     height: 80%;
     overflow: hidden;
 }
-.register_page .register-form, .login-form{
+.register_page .register-form,
+.register_page .login-form{
     position: absolute;
     z-index: 1;
     background: rgba(255, 255, 255, 0.8);
@@ -32,12 +167,12 @@
     height: auto;
     text-align: center
 }
-
 .register_page .register-form{
     display: none;
 }
-
-.register_page form input[type="email"] , form input[type="password"], form input[type="text"]{
+.register_page form input[type="email"] ,
+.register_page form input[type="password"],
+.register_page form input[type="text"]{
     width: 100%;
     margin-bottom: 25px;
     border: none;
@@ -47,14 +182,14 @@
     height: 40px;
     color: #000000
 }
-
 .register_page form input:focus{
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
 
     border-bottom: 1px solid rgba(10, 100, 150, 1);
 }
-
 .register_page form input[type = "submit"]{
 
     margin-top: 20px;
@@ -70,26 +205,29 @@
     font-size: 20px;
     border-radius: 5px;
 }
-
-.register_page form input[type = "submit"]:hover , form input[type = "submit"]:focus{
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+.register_page form input[type="submit"]:hover,
+.register_page form input[type="submit"]:focus{
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
     background: #0a6496;
     cursor: pointer;
 }
-
 .register_page form a{
     color: rgba(0, 159, 131, 0.6);
     text-decoration: none;
 }
-
 .register_page form a:focus{
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
     outline: none;
     color: #0a6496
 }
-
-/*---------------------
-* 02.
-*--------------------*/
+.register_page .register-form .message,
+.register_page .login-form .message{
+    padding-top: 10px;
+    font-weight: 900;
+}
