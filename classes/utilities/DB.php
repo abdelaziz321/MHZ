@@ -20,6 +20,13 @@ class DB
     private $_count = 0;
 
     /**
+     * save the last affected id
+     *
+     * @var int
+     */
+    private $_lastId = 0;
+
+    /**
      * determine if there are any errors
      *
      * @var bool
@@ -59,6 +66,7 @@ class DB
             # reset the previous instance's attribute
             self::$_instance->_results = null;
             self::$_instance->_count = 0;
+            self::$_instance->_lastId = 0;
             self::$_instance->_errors = false;
         }
         return self::$_instance;
@@ -79,6 +87,7 @@ class DB
                     $this->_results = $statement->fetchAll();
                 }
                 $this->_count = $statement->rowCount();
+                $this->_lastId = $this->_pdo->lastInsertId();
             } else {
                 $this->_errors = true;
             }
@@ -106,7 +115,7 @@ class DB
     }
 
     /**
-     * Build the insert query
+     * Build the update query
      *
      * @param  string $sql    Ex: 'INTO users SET name=:name'
      * @param  array  $params Ex: [':name' => $name]
@@ -150,6 +159,25 @@ class DB
     public function select($sql, $params = [])
     {
         $sql = 'SELECT ' . $sql;
+        
+        if (!$this->query($sql, $params)) {
+            return $this->_results;
+        }
+        return false;
+    }
+
+    /**
+     * Build the union query
+     *
+     * @param  string $sql    Ex: 'name FROM users WHERE id = :id'
+     * @param  array  $params Ex: [':id' => $id]
+     * @return mixed  false if any error occure wile executing the query,
+     *                if not return the result
+     */
+    public function union($sql1, $sql2, $where = null, $params = [])
+    {
+        $sql = "SELECT $sql1 WHERE $where UNION SELECT $sql2 WHERE $where";
+
         if (!$this->query($sql, $params)) {
             return $this->_results;
         }
@@ -177,6 +205,14 @@ class DB
             return false;
         }
         return $this->_results[0];
+    }
+
+    /**
+     *
+     */
+    public function lastId()
+    {
+        return $this->_lastId;
     }
 
     /**
