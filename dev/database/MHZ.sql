@@ -29,7 +29,7 @@ CREATE TABLE phones (
 CREATE TABLE requests (
     send_id INT,
     received_id INT,
-	status INT(2),
+	status INT(2),     -- 1 request | 2 friend
     sent_at TIMESTAMP NOT NULL,
     PRIMARY KEY (send_id, received_id),
     FOREIGN KEY (send_id) REFERENCES accounts(id),
@@ -50,7 +50,7 @@ CREATE TABLE posts (
     id INT PRIMARY KEY AUTO_INCREMENT,
     caption TEXT,
     image TEXT,
-    status INT(2) NOT NULL,     -- 1 public | 2 private | 3 only me
+    status INT(2) NOT NULL,     -- 3 public | 2 private | 1 only me
     created_at TIMESTAMP NOT NULL,
     account_id INT,
     FOREIGN KEY (account_id) REFERENCES accounts(id)

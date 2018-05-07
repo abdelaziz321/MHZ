@@ -70,6 +70,64 @@ class Post
     }
 
     /**
+     *
+     */
+     public static function getWallPosts()
+     {
+         $db = DB::getInstance();
+
+         # the most absurd query I've ever made
+         $sql = 'posts.*, accounts.first_name, accounts.last_name, accounts.nick_name, accounts.picture, accounts.gender
+                  FROM posts
+                    INNER JOIN (
+                        SELECT t1.send_id AS friends
+                            FROM (
+                              SELECT requests.send_id, requests.received_id
+                                FROM
+                                  requests
+                                WHERE
+                                  requests.status = 2
+                                    AND (
+                                  requests.send_id = :me1
+                                    OR
+                                  requests.received_id = :me2
+                                  )
+                            ) AS t1
+                        UNION
+                          SELECT t1.received_id AS friends
+                            FROM (
+                              SELECT requests.send_id, requests.received_id
+                                FROM
+                                  requests
+                                WHERE
+                                  requests.status = 2
+                                    AND (
+                                  requests.send_id = :me3
+                                    OR
+                                  requests.received_id = :me4
+                                  )
+                            ) AS t1
+                        UNION
+                          SELECT :me5
+                    ) AS t2
+                      ON t2.friends = posts.account_id
+                    INNER JOIN
+                      accounts
+                        ON posts.account_id = accounts.id
+                    WHERE status = 2';
+
+
+         $db->select($sql, [
+             'me1' => $_SESSION['user'],
+             'me2' => $_SESSION['user'],
+             'me3' => $_SESSION['user'],
+             'me4' => $_SESSION['user'],
+             'me5' => $_SESSION['user']
+         ]);
+
+         return $db->results();
+     }
+    /**
      * get all posts for a specific profile
      *
      * @param $id
@@ -78,7 +136,18 @@ class Post
     public static function getAccountPosts($id)
     {
         $db = DB::getInstance();
-        $db->select('* FROM posts WHERE account_id = :account_id', [
+
+        $sql = 'posts.*, accounts.id AS author, accounts.nick_name, accounts.first_name, accounts.last_name, accounts.picture, accounts.gender
+                    FROM
+                        posts
+                    INNER JOIN
+                        accounts
+                      ON
+                        posts.account_id = accounts.id
+                    WHERE
+                        accounts.id = :account_id';
+
+        $db->select($sql, [
             ':account_id' => $id
         ]);
 
@@ -87,6 +156,8 @@ class Post
 
     /**
      * Create a private post when user change his profile picture
+     *
+     * @return bool
      */
     public function createProfilePicturePost()
     {
@@ -117,6 +188,8 @@ class Post
             $_SESSION['errors'][] = 'can\'t insert';
             return false;
         }
+
+        return true;
     }
 
 
