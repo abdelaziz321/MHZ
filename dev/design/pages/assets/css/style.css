@@ -17,7 +17,7 @@
 }
 body{
     background-color: #f2f2f2;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     letter-spacing: 1px;
     font-size: 13px
 }
@@ -64,6 +64,15 @@ a,a:hover,a:focus{
     color: #fff;
     background-color: rgba(0,0,0,0.1);
 }
+.navvbar .search input::-webkit-input-placeholder{
+    color: rgba(255,255,255,0.7);
+}
+.navvbar .search input::-moz-placeholder{
+    color: rgba(255,255,255,0.7);
+}
+.navvbar .search input:-ms-input-placeholder{
+    color: rgba(255,255,255,0.7);
+}
 .navvbar .search input:focus,
 .navvbar .search input:hover{
     background-color: rgba(0,0,0,0.2);
@@ -88,6 +97,8 @@ a,a:hover,a:focus{
     padding: 0 20px 10px 20px;
     border-radius: 8px;
     background-color: #fbfbfb;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 1px 3px 3px rgba(0,0,0,0.1);
 }
 .sidebar .bio{
     position: relative;
@@ -120,7 +131,6 @@ a,a:hover,a:focus{
     list-style: none;
 }
 .sidebar .menu ul li{
-    padding: 20px 10px;
     font-size: 1.1em;
     cursor: pointer;
     border: 3px solid #fbfbfb;
@@ -130,10 +140,12 @@ a,a:hover,a:focus{
     background-color: #09f;
 }
 .sidebar .menu ul li a{
+    display: block;
+    padding: 20px 15px;
     color: #9e9e9e;
 }
 .sidebar .menu ul li a span{
-    margin-right: 15px;
+    margin-right: 10px;
 }
 .sidebar .menu ul li:hover a{
     color: #fff;
@@ -143,8 +155,8 @@ a,a:hover,a:focus{
 * 01. Register page
 *--------------------*/
 .register_page{
-    background-image: -webkit-gradient(linear , left top, left bottom , from(rgba(0,0,0,0.4)) , to(rgba(0,0,0,0))), url(../images/back01.png);
-    background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/back01.png);
+    background-image: -webkit-gradient(linear , left top, left bottom , from(rgba(0,0,0,0.4)) , to(rgba(0,0,0,0))), url(../images/bg-register.png);
+    background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/bg-register.png);
     background-size: cover;
     height: 100vh;
     font-size: 1.1em;
@@ -238,9 +250,9 @@ a,a:hover,a:focus{
 *--------------------*/
 .wall_page{
     background-color: #fbfbfb;
-    min-height: 120vh;
     padding: 15px;
     margin-bottom: 40px;
+    border: 1px solid rgba(0,0,0,0.1);
 }
 .wall_page .post_form textarea{
     width: 100%;
@@ -342,10 +354,8 @@ a,a:hover,a:focus{
 }
 .wall_page .post .body p{
     margin-top: 10px;
-    margin-bottom: 0;
-    letter-spacing: 1px;
-    font-size: 1.1em;
-    color: #555;
+    color: #777;
+    line-height: 1.7;
 }
 .wall_page .post footer .likes{
     padding: 7px 0;
@@ -392,14 +402,21 @@ a,a:hover,a:focus{
 .wall_page .post footer .comment button[type="submit"]:hover{
     opacity: 1;
 }
-.wall_page .show_more{
+.wall_page .see_more{
     text-align: center;
     padding: 5px;
 }
-.wall_page .show_more a{
-    color: #09f;
+.wall_page .see_more a{
+    position: relative;
+    top: 16px;
+    padding: 5px 15px;
+    font-size: 1.1em;
+    font-weight: 900;
+    border-radius: 8px 7px 0 0;
+    color: #fff;
+    background-color: #09f;
     opacity: 0.8;
 }
-.wall_page .show_more a:hover{
+.wall_page .see_more a:hover{
     opacity: 1;
 }
