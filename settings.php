@@ -8,20 +8,18 @@ if (isset($_POST['update_profile'])) {
     $profile = new Profile($_SESSION['user'], $_POST);
     $profile->updateProfile();
 
+    # update the current profile data
+    $currentProfile = (new Profile($_SESSION['user']))->getData();
+
     # make a new post if the user change his profile picture
     $picture = $profile->getUpdatedProfilePicturePath();
     if ($picture !== false) {
         $post = new Post([
-            'caption'     => 'user has changed his profile picture',
+            'caption'     => "{$currentProfile->nick_name} has changed his profile picture",
             'picturePath' => $picture
-
         ]);
-
         $post->createProfilePicturePost();
     }
-
-    # update the current profile data
-    $currentProfile = (new Profile($_SESSION['user']))->getData();
 }
 
 ?>
