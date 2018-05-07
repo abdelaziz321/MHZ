@@ -83,7 +83,9 @@ class Profile extends User
             $this->updatedProfilePicture = $profilePicture->getNewFileName();
 
             # delete the pervious profile picture
-            if (!empty($this->data['old_picture'])) {
+            if (!empty($this->data['old_picture']) &&
+                $this->data['old_picture'] != 'default-male.png' &&
+                $this->data['old_picture'] != 'default-female.png') {
                 UploadedFile::removeFrom($this->picturePath, $this->data['old_picture']);
             }
         }
@@ -95,8 +97,8 @@ class Profile extends User
             $params[':dob'] = $this->data['dob'];
         }
 
+        // start connecting
         $db = DB::getInstance();
-
         $sql = "accounts
                     SET
                         nick_name      = :nname,
