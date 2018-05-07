@@ -8,7 +8,7 @@ class User
      *
      * @var array
      */
-    private $data;
+    protected $data;
 
     /**
      * Database Instance
@@ -47,7 +47,9 @@ class User
         // if row retrieved and the the hashed password verified
         if ($this->_dbInstance->count() == 1 &&
             password_verify($this->data['password'], $this->_dbInstance->first()->password)) {
-            $_SESSION['user'] = $this->data['email'];
+
+            $this->data['id'] = $this->_dbInstance->first()->id;
+            $this->createUserSession();
             return true;
         }
 
@@ -66,20 +68,28 @@ class User
             return false;
         }
 
-        // insert [firstname, lastname, email, password] into the database
-        $this->_dbInstance->insert('INTO accounts SET first_name = :first_name, last_name = :last_name, email = :email, password = :password', [
+        $params = [
             ':first_name'   => $this->data['first_name'],
             ':last_name'    => $this->data['last_name'],
             ':email'        => $this->data['email'],
             ':password'     => password_hash($this->data['password'], PASSWORD_DEFAULT)
-        ]);
+        ];
+
+        // insert [firstname, lastname, email, password] into the database
+        $this->_dbInstance->insert('INTO accounts SET
+                                    first_name = :first_name,
+                                    last_name  = :last_name,
+                                    email      = :email,
+                                    password   = :password', $params);
 
         if ($this->_dbInstance->errors()) {
             $_SESSION['errors'][] = 'can\'t insert';
             return false;
         }
 
-        $_SESSION['user'] = $this->data['email'];
+        $this->data['id'] = $this->_dbInstance->lastId();
+        $this->createUserSession();
+
         return true;
     }
 
@@ -145,6 +155,14 @@ class User
             return false;
         }
         return true;
+    }
+
+    /**
+     * Create the session of the user using its id
+     */
+    private function createUserSession()
+    {
+        $_SESSION['user'] = $this->data['id'];
     }
 
 }

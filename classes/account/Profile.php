@@ -3,14 +3,41 @@
 
 class Profile extends User
 {
+
     /**
-     * Calling the parent constructor
+     * the current user id
      *
-     * @param array $data
+     * @var int
      */
-    function __construct($data = null)
+    private $userId;
+
+    /**
+     * the updated Profile picture
+     * used to create the 'user has change his profile picture' post
+     *
+     * @var string
+     */
+    private $updatedProfilePicture;
+
+    /**
+     * Path of the post's image
+     *
+     * @var string
+     */
+    private $picturePath = PATH . 'uploads' . DS . 'users' . DS;
+
+    /**
+     * assign the current user id
+     *
+     * @param int $id
+     */
+    function __construct($id, $data = null)
     {
-        parent::__construct($data);
+        if (!empty($data)) {
+            parent::__construct($data);
+        }
+
+        $this->userId = $id;
     }
 
     /**
@@ -18,51 +45,81 @@ class Profile extends User
      * [firstname, lastname, nickname, email ...]
      *
      * @param array info
+     * @return bool
      */
-    public static function updateProfile($info)
+    public function updateProfile()
     {
-        if (!$this->validateInfo()) {
+        $profilePicture = new UploadedFile('picture');
+
+        // validating user info
+        if (!$this->validateInfo($profilePicture)) {
             return false;
         }
 
         $params = [
+            ':id'       => $this->userId,
+            ':nname'    => $this->data['nick_name'],
             ':fname'    => $this->data['first_name'],
             ':lname'    => $this->data['last_name'],
-            ':email'    => $_SESSION['user'],
-            ':pass'     => password_hash($this->data['password'], PASSWORD_DEFAULT),
-            ':niname'   => $this->data['nick_name'],
-            ':photo'    => $this->data['photo'],
-            ':gender'   => $this->data['gender'],
-            ':about'    => $this->data['about'],
             ':hometown' => $this->data['hometown'],
-            ':dob'      => $this->data['dob'],
-            ':Mstatus'  => $this->data['Mstatus']
+            ':about'    => $this->data['about'],
+            ':mstatus'  => $this->data['mstatus'],
+            ':gender'   => $this->data['gender']
         ];
 
-        // insert [firstname, lastname, email, password] into the database
-        $this->_dbInstance->update('accounts
-                                        SET
-                                            first_name     = :fname,
-                                            last_name      = :lname,
-                                            password       = :pass,
-                                            nick_name      = :nname,
-                                            photo          = :photo,
-                                            gender         = :gender,
-                                            about          = :about,
-                                            hometown       = :hometown,
-                                            data_of_birth  = :dob,
-                                            marital_status = :Mstatus
-                                        WHERE
-                                            email = :email', $params);
-
-        if ($this->_dbInstance->errors()) {
-            $_SESSION['errors'][] = 'can\'t update';
-            return false;
+        // update the user password if provided
+        $passwordField = '';
+        if (!empty($this->data['old_password'])) {
+            $passwordField = 'password       = :pass,';
+            $params[':pass'] = password_hash($this->data['password'], PASSWORD_DEFAULT);
         }
 
-        $firstname = $this->data['first_name'];
-        $lastname = $this->data['last_name'];
-        $_SESSION['user'] = "$firstname $lastname";
+        // update the profile picture if a picture provider
+        $pictureField = '';
+        if ($profilePicture->isExists() && $profilePicture->moveTo($this->picturePath)) {
+            $pictureField = 'picture          = :picture,';
+            $params[':picture'] = $profilePicture->getNewFileName();
+
+            $this->updatedProfilePicture = $profilePicture->getNewFileName();
+
+            # delete the pervious profile picture
+            if (!empty($this->data['old_picture'])) {
+                UploadedFile::removeFrom($this->picturePath, $this->data['old_picture']);
+            }
+        }
+
+        // update the data of birth if provider
+        $dobField = '';
+        if (!empty($this->data['dob'])) {
+            $dobField = 'data_of_birth  = :dob,';
+            $params[':dob'] = $this->data['dob'];
+        }
+
+        $db = DB::getInstance();
+
+        $sql = "accounts
+                    SET
+                        nick_name      = :nname,
+                        first_name     = :fname,
+                        last_name      = :lname,
+                        $pictureField
+                        $passwordField
+                        $dobField
+                        hometown       = :hometown,
+                        about          = :about,
+                        marital_status = :mstatus,
+                        gender         = :gender
+                    WHERE
+                        id = :id";
+
+
+        $db->update($sql, $params);
+
+        if ($db->errors()) {
+            $_SESSION['errors'][] = 'can\'t update profile';
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -70,62 +127,95 @@ class Profile extends User
      *
      * @return stdClass the result
      */
-    public function getData($email)
+    public function getData()
     {
-        $dbInstance = DB::getInstance();
-        $user = $dbInstance->select('* FROM accounts WHERE email = :email');
+        $db = DB::getInstance();
+        $db->select('* FROM accounts WHERE id = :id', [
+            ':id' => $this->userId
+        ]);
 
-        if (empty($user->nick_name)) {
-            $user->nick_name = "$user->first_name $user->last_name";
-        }
+        $user = $db->first();
+
+        $user->nick_name = self::nickName($user);
+        $user->picture = self::profilePicture($user);
 
         return $user;
     }
 
     /**
-     * Get the nickname if provided by the user
-     * otherwise get string of the firstname & lastname
+     * Get the path of the updated profile picture
      *
-     * @param string $email
-     * @return string
+     * @return mixed
      */
-    public function getNickname($email)
+    public function getUpdatedProfilePicturePath()
     {
-        $dbInstance = DB::getInstance();
-        $user = $dbInstance->select('* FROM accounts WHERE email = :email');
-        if (empty($user->nick_name)) {
-            return "$user->first_name $user->last_name";
+        if (empty($this->updatedProfilePicture)) {
+            return false;
         }
-        return $user->nick_name;
+        return "{$this->picturePath}{$this->updatedProfilePicture}";
     }
 
     /**
-     * Upldoad the picture and Generate new name for the profile picture
+     * Get the name of the picture if exists
+     * otherwise return the default avatar
+     *
+     * @param stdClass $profile
+     * @return string
      */
-    private function profilePicture()
+    public static function profilePicture($profile)
     {
+        if (!empty($profile->picture)) {
+            return $profile->picture;
+        }
 
+        if (empty($profile->gender)) {
+            return 'default-male.png';
+        }
+
+        return "default-{$profile->gender}.png";
+    }
+
+    /**
+     * Get the nick_name if exists
+     * otherwise return 'first + last' name
+     *
+     * @param stdClass $account
+     * @return string
+     */
+    public static function nickName($profile)
+    {
+        return $profile->nick_name ?: "$profile->first_name $profile->last_name";
     }
 
     /**
      * validating the user inforamation before updating
      *
+     * @param UploadedFile $profilePicture
      * @return bool
      */
-    private function validateInfo()
+    private function validateInfo($profilePicture)
     {
         $validator = new Validator($this->data);
 
+        // validate basic inforamation
         $validator->required('first_name')
                   ->minLen('first_name', 3)
                   ->maxLen('first_name', 9)
                   ->required('last_name')
                   ->minLen('last_name', 3)
-                  ->maxLen('last_name', 9)
-                  ->required('password')
-                  ->match('password', 'confirm_password')
-                  ->minLen('nick_name', 3)
-                  ->maxLen('nick_name', 15);
+                  ->maxLen('last_name', 9);
+
+        // validate password if provided
+        if (!empty($this->data['old_password'])) {
+            $validator->required('new_password')
+                      ->required('confirm_password')
+                      ->match('new_password', 'confirm_password');
+        }
+
+        // validate profilePicture if uploaded
+        if ($profilePicture->isExists()) {
+            $validator->image('picture');
+        }
 
         if ($validator->fails()) {
             $_SESSION['errors'] = $validator->getMessages();
