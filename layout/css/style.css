@@ -3,6 +3,7 @@
 ==============================================
     * 00. General
     * 01. Register page
+    * 02. Wall page
 
 ============================================*/
 
@@ -16,7 +17,7 @@
 }
 body{
     background-color: #f2f2f2;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     letter-spacing: 1px;
     font-size: 13px
 }
@@ -28,6 +29,19 @@ a,a:hover,a:focus{
 .wallpaper{
     min-height: 100vh;
     margin-top: 180px;
+}
+.page{
+    background-color: #fbfbfb;
+    padding: 15px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+.page_header{
+    padding: 0 0 10px 0;
+    margin-bottom: 30px;
+    font-weight: 900;
+    color: #999;
+    border-bottom: 3px solid #ddd;
 }
 
 /* navbar */
@@ -63,6 +77,15 @@ a,a:hover,a:focus{
     color: #fff;
     background-color: rgba(0,0,0,0.1);
 }
+.navvbar .search input::-webkit-input-placeholder{
+    color: rgba(255,255,255,0.7);
+}
+.navvbar .search input::-moz-placeholder{
+    color: rgba(255,255,255,0.7);
+}
+.navvbar .search input:-ms-input-placeholder{
+    color: rgba(255,255,255,0.7);
+}
 .navvbar .search input:focus,
 .navvbar .search input:hover{
     background-color: rgba(0,0,0,0.2);
@@ -87,6 +110,9 @@ a,a:hover,a:focus{
     padding: 0 20px 10px 20px;
     border-radius: 8px;
     background-color: #fbfbfb;
+    border: 1px solid rgba(0,0,0,0.1);
+    -webkit-box-shadow: 1px 3px 3px rgba(0,0,0,0.1);
+            box-shadow: 1px 3px 3px rgba(0,0,0,0.1);
 }
 .sidebar .bio{
     position: relative;
@@ -97,12 +123,13 @@ a,a:hover,a:focus{
     top: 0;
     right: 50%;
     width: 33%;
+    max-width: 110px;
     min-width: 65px;
     z-index: 3;
     border-radius: 50%;
     border: 2px solid #09f;
     -webkit-transform: translate(50%, -66%);
-            transform: translate(50%, -66%);
+        transform: translate(50%, -66%);
 }
 .sidebar .bio h3{
     position: relative;
@@ -119,7 +146,6 @@ a,a:hover,a:focus{
     list-style: none;
 }
 .sidebar .menu ul li{
-    padding: 20px 10px;
     font-size: 1.1em;
     cursor: pointer;
     border: 3px solid #fbfbfb;
@@ -129,10 +155,12 @@ a,a:hover,a:focus{
     background-color: #09f;
 }
 .sidebar .menu ul li a{
+    display: block;
+    padding: 20px 15px;
     color: #9e9e9e;
 }
 .sidebar .menu ul li a span{
-    margin-right: 15px;
+    margin-right: 10px;
 }
 .sidebar .menu ul li:hover a{
     color: #fff;
@@ -142,8 +170,8 @@ a,a:hover,a:focus{
 * 01. Register page
 *--------------------*/
 .register_page{
-    background-image: -webkit-gradient(linear , left top, left bottom , from(rgba(0,0,0,0.4)) , to(rgba(0,0,0,0))), url(../images/back01.png);
-    background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/back01.png);
+    background-image: -webkit-gradient(linear , left top, left bottom , from(rgba(0,0,0,0.4)) , to(rgba(0,0,0,0))), url(../images/bg-register.png);
+    background-image: linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0)), url(../images/bg-register.png);
     background-size: cover;
     height: 100vh;
     font-size: 1.1em;
@@ -184,9 +212,9 @@ a,a:hover,a:focus{
 }
 .register_page form input:focus{
     -webkit-transition-duration: 0.5s;
-            transition-duration: 0.5s;
+       transition-duration: 0.5s;
     -webkit-transition-timing-function: ease-in-out;
-            transition-timing-function: ease-in-out;
+       transition-timing-function: ease-in-out;
 
     border-bottom: 1px solid rgba(10, 100, 150, 1);
 }
@@ -208,9 +236,9 @@ a,a:hover,a:focus{
 .register_page form input[type="submit"]:hover,
 .register_page form input[type="submit"]:focus{
     -webkit-transition-duration: 0.5s;
-            transition-duration: 0.5s;
+       transition-duration: 0.5s;
     -webkit-transition-timing-function: ease-in-out;
-            transition-timing-function: ease-in-out;
+       transition-timing-function: ease-in-out;
     background: #0a6496;
     cursor: pointer;
 }
@@ -220,9 +248,9 @@ a,a:hover,a:focus{
 }
 .register_page form a:focus{
     -webkit-transition-duration: 0.5s;
-            transition-duration: 0.5s;
+       transition-duration: 0.5s;
     -webkit-transition-timing-function: ease-in-out;
-            transition-timing-function: ease-in-out;
+       transition-timing-function: ease-in-out;
     outline: none;
     color: #0a6496
 }
@@ -230,4 +258,428 @@ a,a:hover,a:focus{
 .register_page .login-form .message{
     padding-top: 10px;
     font-weight: 900;
+}
+
+/*---------------------
+* 02. Wall & Profile page
+*--------------------*/
+.wall_page .post_form textarea{
+    width: 100%;
+    min-height: 150px;
+    max-height: 250px;
+    resize: vertical;
+    padding: 10px;
+    opacity: 1;
+    border: 2px solid rgba(0,0,0,0.07);
+    background-color: #f9f9f9;
+}
+.wall_page .post_form textarea:hover,
+.wall_page .post_form textarea:focus{
+    background-color: #fdfdfd;
+}
+.wall_page .post_form textarea:focus{
+    border: 2px solid #09f;
+}
+.wall_page .post_form .post_options{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 10px 0 20px 0;
+    border-bottom: 3px solid #f0f0f0;
+}
+.wall_page .post_form .post_options .post_photo{
+    width: 120px;
+    color: #bbb;
+    background-color: #fff;
+}
+.wall_page .post_form .post_options .post_photo input{
+    height: 40px;
+    max-width: 130px;
+    background-color: #fbfbfb;
+    cursor: pointer;
+}
+.wall_page .post_form .post_options select{
+    height: 40px;
+    width: 110px;
+    cursor: pointer;
+}
+.wall_page .post_form .post_options button[type="submit"]{
+    display: block;
+    float: right;
+    width: 105px;
+    height: 40px;
+    font-size: 1.5em;
+    border: 0;
+    color: #f2f2f2;
+    background-color: #09f;
+    opacity: 0.7;
+}
+.wall_page .post_form .post_options button[type="submit"]:hover{
+    opacity: 1;
+}
+.wall_page .post,
+.profile_page .post{
+    margin-top: 20px;
+    padding: 15px 10px 20px 10px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+.wall_page .post header,
+.profile_page .post header{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+.wall_page .post header img,
+.profile_page .post header img{
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    margin-right: 11px;
+}
+.wall_page .post header div h5,
+.profile_page .post header div h5{
+    color: #09f;
+    margin-bottom: 5px;
+}
+.wall_page .post header div time,
+.profile_page .post header div time{
+    color: #999;
+    font-size: 0.85em;
+}
+.wall_page .post header form button,
+.profile_page .post header form button{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: transparent;
+    border: 0;
+    color: #999;
+    font-size: 1.2em;
+}
+.wall_page .post header form button:hover,
+.profile_page .post header form button:hover{
+    color: #09f;
+}
+.wall_page .post .body img,
+.profile_page .post .body img{
+    width: 100%;
+    margin-top: 10px;
+}
+.wall_page .post .body p,
+.profile_page .post .body p{
+    margin-top: 10px;
+    color: #777;
+    line-height: 1.7;
+}
+.wall_page .post footer .likes,
+.profile_page .post footer .likes{
+    padding: 7px 0;
+    background-color: rgba(255,255,255,0.5);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.wall_page .post footer .likes span,
+.profile_page .post footer .likes span{
+    color: #666;
+}
+.wall_page .post footer .likes span a,
+.profile_page .post footer .likes span a{
+    color: #09f;
+    opacity: 0.8;
+}
+.wall_page .post footer .likes span a:hover,
+.profile_page .post footer .likes span a:hover{
+    opacity: 1;
+}
+.wall_page .post footer .comment textarea,
+.profile_page .post footer .comment textarea{
+    resize: none;
+    height: 40px;
+    width: 92%;
+    padding: 1px 5px;
+    border: 0;
+    border-radius: 0 0 0 7px;
+    color: #777;
+    background-color: #f9f9f9;
+}
+.wall_page .post footer .comment button[type="submit"],
+.profile_page .post footer .comment button[type="submit"]{
+    display: block;
+    float: right;
+    width: 7.5%;
+    height: 40px;
+    font-size: 1em;
+    border: 0;
+    border-radius: 0 0 7px 0;
+    color: #09f;
+    background-color: #fff;
+    opacity: 0.7;
+}
+.wall_page .post footer .comment button[type="submit"]:hover,
+.profile_page .post footer .comment button[type="submit"]:hover{
+    opacity: 1;
+}
+.wall_page .see_more,
+.profile_page .see_more{
+    text-align: center;
+    padding: 5px;
+}
+.wall_page .see_more a,
+.profile_page .see_more a{
+    position: relative;
+    top: 16px;
+    padding: 5px 15px;
+    font-size: 1.1em;
+    font-weight: 900;
+    border-radius: 8px 7px 0 0;
+    color: #fff;
+    background-color: #09f;
+    opacity: 0.8;
+}
+.wall_page .see_more a:hover,
+.profile_page .see_more a:hover{
+    opacity: 1;
+}
+
+
+/*---------------------
+* 03. Friends page
+*--------------------*/
+.frinds_page{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+}
+.frinds_page > p{
+    color: #999;
+    font-size: 1.1em;
+}
+.frinds_page .card{
+    width: 30%;
+    min-width: 230px;
+    padding: 7px;
+    margin-bottom: 15px;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.frinds_page .card:hover{
+    -webkit-box-shadow: 0 5px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 6px rgba(0,0,0,0.2);
+}
+.frinds_page .card img{
+    width: 100%;
+}
+.frinds_page .card a{
+    color: #09f;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+.frinds_page .card a:hover{
+    opacity: 1;
+}
+.frinds_page .card button{
+    opacity: 0.8;
+}
+.frinds_page .card button:hover{
+    opacity: 1;
+}
+
+/*---------------------
+* 03. Search|notif page
+*--------------------*/
+.page .account{
+    background-color: #f2f2f2;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    color: #999;
+    padding: 0 0 9px 0;
+}
+.page .account > img{
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border-right: 5px solid #fbfbfb;
+    border-bottom: 5px solid #fbfbfb;
+}
+.page .account > .bio > h5 a{
+    font-size: 1.3em;
+    color: #09f;
+    opacity: 0.6;
+}
+.page .account > .bio > h5 a:hover{
+    opacity: 1;
+}
+.page .account > .bio > div button{
+    margin-bottom: 10px;
+    border-radius: 0;
+    background-color: #09f;
+    color: #fff;
+    opacity: 0.8;
+    font-size: 0.87em;
+}
+.page .account > .bio > div button:hover{
+    opacity: 1;
+}
+
+/*---------------------
+* 04. notif page
+*--------------------*/
+.notifications_page h4 {
+    color: #999;
+    margin-top: 40px;
+}
+
+/*---------------------
+* 05. Settings page
+*--------------------*/
+.settings_page input,
+.settings_page input[type="radio"] + label,
+.settings_page input[type="checkbox"] + label:before,
+.settings_page select option,
+.settings_page select ,textarea{
+    width: 100%;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #f2f2f2;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.settings_page input:focus {
+    outline: 0;
+    border-color: #09f;
+}
+.settings_page input:focus + .input-icon i {
+    color: #999;
+}
+.settings_page input:focus + .input-icon:after {
+    border-right-color: #028181;
+}
+.settings_page input[type="radio"] {
+    display: none;
+}
+.settings_page input[type="radio"] + label,
+.settings_page select {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    float: left;
+    border-radius: 0;
+    cursor: pointer;;
+}
+.settings_page input[type="radio"] + label:first-of-type {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.settings_page input[type="radio"] + label:last-of-type {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.settings_page input[type="radio"] + label i {
+    padding-right: 0.4em;
+}
+.settings_page input[type="radio"]:checked + label,
+.settings_page input:checked + label:before,
+.settings_page select:focus,
+.settings_page select:active {
+    background-color: #09f;
+    color: #fff;
+}
+.settings_page input:checked + label:after {
+    opacity: 1;
+}
+.settings_page select {
+    height: 40px;
+    line-height: 2;
+}
+.settings_page select option {
+    background-color: #49b5fd;
+    color: #fff;
+}
+.settings_page .input-group {
+    margin-bottom: 1em;
+    width: 100%;
+}
+.settings_page .input-group:before,
+.settings_page .input-group:after {
+    content: "";
+    display: table;
+}
+.settings_page .input-group:after {
+    clear: both;
+}
+.settings_page .input-group-icon {
+    position: relative;
+}
+.settings_page .input-group-icon input {
+    padding-left: 4.4em;
+    height: 45px;
+}
+.settings_page .input-group-icon input[disabled]{
+    color: #888;
+}
+.settings_page .input-group-icon .input-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3.4em;
+    height: 3.4em;
+    line-height: 3.4em;
+    text-align: center;
+    pointer-events: none;
+}
+.settings_page .input-group-icon .input-icon:after {
+    position: absolute;
+    top: 0.6em;
+    bottom: 0.6em;
+    left: 3.4em;
+    display: block;
+    border-right: 1px solid #e5e5e5;
+    content: "";
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.settings_page .input-group-icon .input-icon i {
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.settings_page h4 {
+    color: #09f;
+    margin-top: 40px;
+    padding-left: 2px;
+}
+.settings_page h5 {
+    color: #999;
+}
+.settings_page input[type="submit"] {
+    background-color: #028181;
+    background-color: #09f;
+    color: #fff;
+    padding: 10px 22px;
+    width: auto;
 }
