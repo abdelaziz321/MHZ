@@ -18,6 +18,14 @@ class Validator
     private $errors = [];
 
     /**
+     * the allowed image extention
+     *
+     * @var array
+     */
+    private $allowedImageExtension = ['jpg', 'jpeg', 'png'];
+
+
+    /**
      * Constructor
      *
      * @param array $data
@@ -66,9 +74,16 @@ class Validator
             return $this;
         }
 
-        ### @TODO we may use the photo class functions ^‿^
+        $extention = pathinfo($_FILES[$inputName]['name'])['extension'];
 
-        return $this;
+        if (in_array($extention, $this->allowedImageExtension) &&
+            strpos($_FILES[$inputName]['type'], 'image/') === 0)  {
+            return $this;
+        }
+
+        # generate the error message only if it doesn't provided
+        $message = $message ?: sprintf("%s is not a valid image", $inputName);
+        $this->errors[$inputName] = $message;
     }
 
     /**
