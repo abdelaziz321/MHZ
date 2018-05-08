@@ -43,6 +43,12 @@ $posts = Post::getWallPosts();
                             foreach($posts AS $post) {
                                 $nickName = Profile::nickName($post);
                                 $picture = Profile::profilePicture($post);
+                                list($status, $statusClass) = Post::getPostStatus($post);
+
+                                // if the post is only me and the current user is not the owner of the post
+                                if ($post->status == 1 && $currentProfile->id != $post->account_id) {
+                                    continue;
+                                }
                             ?>
 
                             <!-- posts -->
@@ -50,13 +56,16 @@ $posts = Post::getWallPosts();
                                 <header>
                                     <img src="<?= $userPath . $post->picture; ?>" alt="user"/>
                                     <div>
-                                        <h5 class="nickname"><a href="#"><?= $post->nick_name; ?></a></h5>
+                                        <h5 class="nickname"><a href="profile.php?id=<?= $post->account_id; ?>"><?= $nickName; ?></a></h5>
                                         <time><?= $post->created_at; ?></time>
+                                        <span class="label label-<?= $statusClass ?>"><?= $status; ?> post</span>
                                     </div>
                                 </header>
                                 <div class="body">
                                     <p><?= $post->caption; ?></p>
-                                    <img src="<?= $postPath . $post->image; ?>" />
+                                    <?php if (!empty($post->image)): ?>
+                                        <img src="<?= $postPath . $post->image; ?>" />
+                                    <?php endif; ?>
                                 </div>
                                 <!-- <footer>
                                     <div class="likes">

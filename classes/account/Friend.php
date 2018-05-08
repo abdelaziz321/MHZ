@@ -230,8 +230,7 @@ class Friend extends User
                 WHERE
                     (send_id = :me1 AND received_id = :friend1)
                   OR
-                    (send_id = :friend2 AND received_id = :me2)
-                    ';
+                    (send_id = :friend2 AND received_id = :me2)';
 
         $db->delete($sql, [
             'me1'       => $this->userId,
@@ -241,6 +240,37 @@ class Friend extends User
         ]);
 
         return $db->errors();
+    }
+
+    /**
+     * Determine if the current user is a friend of the owner of that profile
+     *
+     * @param  int  $id
+     * @return bool
+     */
+    public function isFriend($id)
+    {
+        $db = DB::getInstance();
+
+        $sql = '* FROM
+                    requests
+                WHERE
+                    (
+                        (send_id = :me1 AND received_id = :friend1)
+                      OR
+                        (send_id = :friend2 AND received_id = :me2)
+                    )
+                  AND
+                    status = 2';
+
+        $db->select($sql, [
+            'me1'       => $this->userId,
+            'friend1'   => $id,
+            'me2'       => $this->userId,
+            'friend2'   => $id
+        ]);
+
+        return $db->count() == 1;
     }
 
 }

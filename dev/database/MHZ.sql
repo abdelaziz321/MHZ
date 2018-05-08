@@ -29,7 +29,7 @@ CREATE TABLE phones (
 CREATE TABLE requests (
     send_id INT,
     received_id INT,
-	status INT(2),     -- 1 request | 2 friend
+    status INT(2),     -- 1 request | 2 friend
     sent_at TIMESTAMP NOT NULL,
     PRIMARY KEY (send_id, received_id),
     FOREIGN KEY (send_id) REFERENCES accounts(id),
@@ -67,7 +67,7 @@ CREATE TABLE comments (
 );
 
 CREATE TABLE likes (
-	account_id INT,
+    account_id INT,
     post_id INT,
     FOREIGN KEY (account_id) REFERENCES accounts(id),
     FOREIGN KEY (post_id) REFERENCES posts(id)

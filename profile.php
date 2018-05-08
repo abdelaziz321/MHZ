@@ -8,10 +8,11 @@ if (!isset($_GET['id']) && empty($_GET['id'])) {
     die;
 }
 
-$profile = new Profile($_GET['id']);
-$user = $profile->getData();
+$posts = Post::getAccountPosts($_GET['id']);
+$profile = (new Profile($_GET['id']))->getData();
 
-$posts = Post::getAccountPosts($_SESSION['user']);
+// determine if the current user is a friend of the owner of that profile
+$friend = (new Friend($currentProfile->id))->isFriend($_GET['id']);
 
 ?>
             <?php include $templates . 'navbar.php'; ?>
@@ -21,27 +22,45 @@ $posts = Post::getAccountPosts($_SESSION['user']);
 
                     <!-- profile page -->
                     <div class="col-md-8 page">
-                        <h3 class="page_header"><?= $user->nick_name; ?>'s Profile</h3>
+                        <h3 class="page_header"><?= $profile->nick_name; ?>'s Profile</h3>
                         <div class="profile_page">
 
-                            <?php foreach ($posts as $post) { ?>
+                        <?php
+                        foreach ($posts as $post) {
+                            $nickName = Profile::nickName($post);
+                            $picture = Profile::profilePicture($post);
+                            list($status, $statusClass) = Post::getPostStatus($post);
 
+                            // if the post is only me and the current user is not the owner of the post
+                            if ($post->status == 1 && $currentProfile->id != $post->account_id) {
+                                continue;
+                            }
+
+                            // if the post is private and the current user is not the owner of the post or a friend
+                            if ($post->status == 2 && $currentProfile->id != $post->account_id && !$friend) {
+                                continue;
+                            }
+
+                        ?>
                             <!-- post -->
                             <div class="post">
                                 <header>
-                                    <img src="<?= $userPath . 'user1.jpg'; ?>" alt="user"/>
+                                    <img src="<?= $userPath . $picture; ?>" alt="user"/>
                                     <div>
                                         <h5 class="nickname">
-                                            <a href="profile.php?id=<?= $user->id; ?>"><?= $user->nick_name; ?></a>
+                                            <a href="profile.php?id=<?= $post->account_id; ?>"><?= $post->nick_name; ?></a>
                                         </h5>
                                         <time><?= $post->created_at ?></time>
+                                        <span class="label label-<?= $statusClass ?>"><?= $status; ?> post</span>
                                     </div>
                                 </header>
                                 <div class="body">
                                     <p><?= $post->caption; ?></p>
-                                    <img src="<?= $postPath . $post->image; ?>" />
+                                    <?php if (!empty($post->image)): ?>
+                                        <img src="<?= $postPath . $post->image; ?>" />
+                                    <?php endif; ?>
                                 </div>
-                                <footer>
+                                <!-- <footer>
                                     <div class="likes">
                                         <span>
                                             <a href="#">
@@ -61,9 +80,8 @@ $posts = Post::getAccountPosts($_SESSION['user']);
                                             <button type="submit" name="submit_comment" title="reply"><i class="fa fa-reply"></i></button>
                                         </form>
                                     </div>
-                                </footer>
+                                </footer> -->
                             </div>
-
                             <?php } ?>
                         </div>
                     </div>

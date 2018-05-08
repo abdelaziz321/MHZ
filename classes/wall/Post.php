@@ -41,25 +41,31 @@ class Post
             return false;
         }
 
-        $image->moveTo($this->imagePath);
-
-        $db = DB::getInstance();
-
         $params = [
             ':caption'    => $this->data['caption'],
-            ':image'      => $image->getNewFileName(),
             ':status'     => $this->data['status'],
             ':created_at' => date('Y-m-d H:i:s'),
             ':account_id' => $_SESSION['user'],
         ];
 
+        $imgeField = '';
+        if ($image->isExists()) {
+            $imgeField = 'image       = :image,';
+            $params[':image'] = $image->getNewFileName();
+            $image->moveTo($this->imagePath);
+        }
+
+
+        $db = DB::getInstance();
+
+
         // insert [caption, image, status, created_at, account_id] into the database
-        $db->insert('INTO posts SET
+        $db->insert("INTO posts SET
                         caption     = :caption,
-                        image       = :image,
+                        $imageField
                         status      = :status,
                         created_at  = :created_at,
-                        account_id  = :account_id',
+                        account_id  = :account_id",
                     $params);
 
         if ($db->errors()) {
@@ -70,7 +76,9 @@ class Post
     }
 
     /**
+     * Get all the posts of the current user's friends
      *
+     * @return array
      */
      public static function getWallPosts()
      {
@@ -114,7 +122,8 @@ class Post
                     INNER JOIN
                       accounts
                         ON posts.account_id = accounts.id
-                    WHERE status = 2';
+                    ORDER BY
+                      created_at DESC';
 
 
          $db->select($sql, [
@@ -127,6 +136,7 @@ class Post
 
          return $db->results();
      }
+
     /**
      * get all posts for a specific profile
      *
@@ -137,7 +147,7 @@ class Post
     {
         $db = DB::getInstance();
 
-        $sql = 'posts.*, accounts.id AS author, accounts.nick_name, accounts.first_name, accounts.last_name, accounts.picture, accounts.gender
+        $sql = 'posts.*, accounts.nick_name, accounts.first_name, accounts.last_name, accounts.picture, accounts.gender
                     FROM
                         posts
                     INNER JOIN
@@ -145,7 +155,9 @@ class Post
                       ON
                         posts.account_id = accounts.id
                     WHERE
-                        accounts.id = :account_id';
+                        accounts.id = :account_id
+                    ORDER BY
+                      created_at DESC';
 
         $db->select($sql, [
             ':account_id' => $id
@@ -190,6 +202,34 @@ class Post
         }
 
         return true;
+    }
+
+    /**
+     * Given a post object it will return the status of the post and a class
+     * primary for public 3 - warning for private 2 - danger for only me 1
+     *
+     * @param  stdClass $post
+     * @return array
+     */
+    public function getPostStatus($post)
+    {
+        switch ($post->status) {
+            case 1:
+                $status = 'Only me';
+                $statusClass = 'danger';
+                break;
+
+            case 2:
+                $status = 'private';
+                $statusClass = 'primary';
+                break;
+
+            case 3:
+                $status = 'public';
+                $statusClass = 'info';
+                break;
+        }
+        return [$status, $statusClass];
     }
 
 
