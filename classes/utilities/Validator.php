@@ -232,6 +232,17 @@ class Validator
         return $this;
     }
 
+    public function addMessage($error, $message)
+    {
+        // check if the input have this error only if it hasn't any previous errors
+        if (array_key_exists($error, $this->errors)) {
+            return $this;
+        }
+
+        $this->error[$error] = $message;
+        return $this;
+    }
+
     /**
      * Determine if all inputs are valid
      *

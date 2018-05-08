@@ -71,7 +71,7 @@ class Profile extends User
         $passwordField = '';
         if (!empty($this->data['old_password'])) {
             $passwordField = 'password       = :pass,';
-            $params[':pass'] = password_hash($this->data['password'], PASSWORD_DEFAULT);
+            $params[':pass'] = password_hash($this->data['new_password'], PASSWORD_DEFAULT);
         }
 
         // update the profile picture if a picture provider
@@ -212,6 +212,17 @@ class Profile extends User
             $validator->required('new_password')
                       ->required('confirm_password')
                       ->match('new_password', 'confirm_password');
+
+            $db = DB::getInstance();
+            $db->select('password FROM accounts WHERE id = :id', [
+                ':id' => $this->userId
+            ]);
+
+            $password = $db->first();
+
+            if (!password_verify($this->data['old_password'], $password)) {
+                $validator->addMessage('old_password', ' password is wrong. try again!');
+            }
         }
 
         // validate profilePicture if uploaded
