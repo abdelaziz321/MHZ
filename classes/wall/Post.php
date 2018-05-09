@@ -48,16 +48,15 @@ class Post
             ':account_id' => $_SESSION['user'],
         ];
 
-        $imgeField = '';
+
         if ($image->isExists()) {
-            $imgeField = 'image       = :image,';
-            $params[':image'] = $image->getNewFileName();
             $image->moveTo($this->imagePath);
+            $imageField = 'image       = :image,';
+            $params[':image'] = $image->getNewFileName();
         }
 
 
         $db = DB::getInstance();
-
 
         // insert [caption, image, status, created_at, account_id] into the database
         $db->insert("INTO posts SET

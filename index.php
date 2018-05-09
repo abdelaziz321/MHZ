@@ -54,7 +54,7 @@ $posts = Post::getWallPosts();
                             <!-- posts -->
                             <div class="post">
                                 <header>
-                                    <img src="<?= $userPath . $post->picture; ?>" alt="user"/>
+                                    <img src="<?= $userPath . $picture; ?>" alt="user"/>
                                     <div>
                                         <h5 class="nickname"><a href="profile.php?id=<?= $post->account_id; ?>"><?= $nickName; ?></a></h5>
                                         <time><?= $post->created_at; ?></time>
