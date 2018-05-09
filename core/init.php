@@ -6,7 +6,7 @@ session_start();
 $_config = [
     'host'      => '127.0.0.1',
     'username'  => 'root',
-    'password'  => '!23qwe',
+    'password'  => '',
     'database'  => 'MHZ'
 ];
 
