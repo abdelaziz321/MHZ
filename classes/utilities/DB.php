@@ -159,7 +159,6 @@ class DB
     public function select($sql, $params = [])
     {
         $sql = 'SELECT ' . $sql;
-        
         if (!$this->query($sql, $params)) {
             return $this->_results;
         }
@@ -208,7 +207,9 @@ class DB
     }
 
     /**
+     * get the last id hah been affected
      *
+     * @return int
      */
     public function lastId()
     {

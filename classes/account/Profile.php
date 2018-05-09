@@ -61,6 +61,7 @@ class Profile extends User
             ':nname'    => $this->data['nick_name'],
             ':fname'    => $this->data['first_name'],
             ':lname'    => $this->data['last_name'],
+            ':dob'      => $this->data['dob'],
             ':hometown' => $this->data['hometown'],
             ':about'    => $this->data['about'],
             ':mstatus'  => $this->data['mstatus'],
@@ -90,13 +91,6 @@ class Profile extends User
             }
         }
 
-        // update the data of birth if provider
-        $dobField = '';
-        if (!empty($this->data['dob'])) {
-            $dobField = 'data_of_birth  = :dob,';
-            $params[':dob'] = $this->data['dob'];
-        }
-
         // start connecting
         $db = DB::getInstance();
         $sql = "accounts
@@ -106,7 +100,7 @@ class Profile extends User
                         last_name      = :lname,
                         $pictureField
                         $passwordField
-                        $dobField
+                        data_of_birth  = :dob,
                         hometown       = :hometown,
                         about          = :about,
                         marital_status = :mstatus,
@@ -218,8 +212,7 @@ class Profile extends User
                 ':id' => $this->userId
             ]);
 
-            $password = $db->first();
-
+            $password = $db->first()->password;
             if (!password_verify($this->data['old_password'], $password)) {
                 $validator->addMessage('old_password', ' password is wrong. try again!');
             }

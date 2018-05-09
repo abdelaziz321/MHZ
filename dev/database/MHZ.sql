@@ -13,7 +13,7 @@ CREATE TABLE accounts (
     password CHAR(255) NOT NULL,
     picture TEXT,
     marital_status CHAR(20),
-    data_of_birth TIMESTAMP,
+    data_of_birth DATE,
     gender CHAR(10),
     about TEXT,
     hometown VARCHAR(50)

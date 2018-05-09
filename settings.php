@@ -84,7 +84,7 @@ if (isset($_POST['update_profile'])) {
                                         <div class="col-md-6">
                                             <h5>Date of Birth:</h5>
                                             <div class="input-group">
-                                                <input type="date" name="dob" value=" value="<?= $currentProfile->data_of_birth; ?>"">
+                                                <input type="date" name="dob" value="<?= $currentProfile->data_of_birth; ?>">
                                             </div>
                                         </div>
 
