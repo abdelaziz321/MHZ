@@ -56,6 +56,11 @@ class Profile extends User
             return false;
         }
 
+        // data_of_birth field could be in datetime format or null not the value ''
+        if (empty($this->data['dob'])) {
+            $this->data['dob'] = null;
+        }
+
         $params = [
             ':id'       => $this->userId,
             ':nname'    => $this->data['nick_name'],
