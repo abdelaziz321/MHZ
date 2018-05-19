@@ -85,52 +85,42 @@ class Post
 
          # the most absurd query I've ever made
          $sql = 'posts.*, accounts.first_name, accounts.last_name, accounts.nick_name, accounts.picture, accounts.gender
-                  FROM posts
-                    INNER JOIN (
-                        SELECT t1.send_id AS friends
-                            FROM (
-                              SELECT requests.send_id, requests.received_id
-                                FROM
-                                  requests
-                                WHERE
-                                  requests.status = 2
-                                    AND (
-                                  requests.send_id = :me1
-                                    OR
-                                  requests.received_id = :me2
-                                  )
-                            ) AS t1
-                        UNION
-                          SELECT t1.received_id AS friends
-                            FROM (
-                              SELECT requests.send_id, requests.received_id
-                                FROM
-                                  requests
-                                WHERE
-                                  requests.status = 2
-                                    AND (
-                                  requests.send_id = :me3
-                                    OR
-                                  requests.received_id = :me4
-                                  )
-                            ) AS t1
-                        UNION
-                          SELECT :me5
-                    ) AS t2
-                      ON t2.friends = posts.account_id
-                    INNER JOIN
-                      accounts
-                        ON posts.account_id = accounts.id
-                    ORDER BY
-                      created_at DESC';
+                 FROM posts
+
+                 -- me and my friends IDs
+                 INNER JOIN (
+                     -- my frinds when i am the one who received the friend request
+                     SELECT requests.send_id AS friend
+                     FROM requests
+                     WHERE
+                       requests.status = 2
+                       AND
+                       requests.received_id = :me1
+                   UNION
+                     -- my frinds when i am the one who sent the friend request
+                     SELECT requests.received_id AS friend
+                     FROM requests
+                     WHERE
+                       requests.status = 2
+                       AND
+                       requests.send_id = :me2
+                   UNION
+                     -- me
+                     SELECT :me3
+
+                 ) AS t1
+                 ON t1.friend = posts.account_id
+                 -- /me and my friends IDs
+
+                 INNER JOIN accounts
+                   ON posts.account_id = accounts.id
+                   ORDER BY created_at DESC';
 
 
          $db->select($sql, [
              'me1' => $_SESSION['user'],
              'me2' => $_SESSION['user'],
-             'me3' => $_SESSION['user'],
-             'me4' => $_SESSION['user'],
-             'me5' => $_SESSION['user']
+             'me3' => $_SESSION['user']
          ]);
 
          return $db->results();
